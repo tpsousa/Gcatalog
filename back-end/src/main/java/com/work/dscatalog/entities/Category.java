@@ -1,10 +1,17 @@
 package com.work.dscatalog.entities;
 
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.Objects;
 
+//camada de acesso a dados
+@Entity
+@Table (name = "tb_category")
 public class Category implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Long id;
     private String name;
 
