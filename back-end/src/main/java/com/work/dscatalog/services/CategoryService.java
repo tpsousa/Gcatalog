@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,6 +27,16 @@ public class CategoryService {
         List <CategoryDTO> listDto  = list.stream().map(x -> new CategoryDTO(x)).collect(Collectors.toList());
 
         return listDto;
+
+    }
+
+    @Transactional(readOnly = true)
+    public CategoryDTO findById(Long id) {
+        //o optional serve para lidar com valores nulos
+        Optional<Category> obj = repository.findById(id);
+        Category entity = obj.get();
+
+        return new CategoryDTO(entity);
 
     }
 }

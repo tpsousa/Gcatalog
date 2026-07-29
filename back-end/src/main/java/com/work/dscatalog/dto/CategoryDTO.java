@@ -22,8 +22,12 @@ public class CategoryDTO implements Serializable {
         this.id = id;
     }
 
+    //construtor de conversao, pega uma entidade category e transforma em um categoryDto
+    //que e o objeto que queremos desolver na API.
     public CategoryDTO(Category entity){
 
+        id = entity.getId();
+        name = entity.getNome();
 
     }
     public String getName() {
@@ -31,7 +35,7 @@ public class CategoryDTO implements Serializable {
         return name;
     }
 
-    public long getId (){
+    public Long getId (){
 
         return id;
     }
