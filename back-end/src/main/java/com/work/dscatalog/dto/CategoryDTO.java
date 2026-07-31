@@ -1,14 +1,18 @@
 package com.work.dscatalog.dto;
 
 import com.work.dscatalog.entities.Category;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Objects;
 
+@Getter
 public class CategoryDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Setter
     private String name;
     private Long id;
 
@@ -27,22 +31,8 @@ public class CategoryDTO implements Serializable {
     public CategoryDTO(Category entity){
 
         id = entity.getId();
-        name = entity.getNome();
+        name = entity.getName();
 
-    }
-    public String getName() {
-
-        return name;
-    }
-
-    public Long getId (){
-
-        return id;
-    }
-
-    public void setName(String name){
-
-        this.name = name;
     }
 
     @Override

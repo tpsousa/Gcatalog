@@ -1,6 +1,8 @@
 package com.work.dscatalog.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -10,9 +12,13 @@ import java.util.Objects;
 @Table (name = "tb_category")
 public class Category implements Serializable {
 
+
+    //lamboks sao abreviacoes para codigos repetitivos tipo getters e setters
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Long id;
+    @Setter
+    @Getter
     private String name;
 
     public Category(){
@@ -30,14 +36,6 @@ public class Category implements Serializable {
 
     public void setId(long id){
         this.id = id;
-    }
-
-    public String getNome(){
-        return name;
-    }
-
-    public void setName(){
-        this.name = name;
     }
 
     @Override
