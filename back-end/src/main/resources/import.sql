@@ -1,14 +1,7 @@
-INSERT INTO tb_category (name) VALUES ('perola');
+INSERT INTO tb_category (name, created_at) VALUES ('perola', NOW());
 
-INSERT INTO TB_CATEGORY (name) VALUES ('ratinha');
+INSERT INTO tb_category (name, created_at) VALUES ('ratinha', NOW());
 
-INSERT INTO TB_CATEGORY (name) VALUES ('jarvis');
+INSERT INTO tb_category (name, created_at) VALUES ('jarvis', NOW());
 
-INSERT INTO TB_CATEGORY (name) VALUES ('coca-cola');
-
-INSERT INTO TB_CATEGORY (name) VALUES ('fanta');
-
-INSERT INTO TB_CATEGORY (name) VALUES ('sprit');
-
-INSERT INTO TB_CATEGORY (name) VALUES ('pepsi');
-
+INSERT INTO tb_category (name, created_at) VALUES ('coca-cola', NOW());

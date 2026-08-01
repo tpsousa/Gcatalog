@@ -68,7 +68,7 @@ public class CategoryResource {
 
         service.delete(id);
 
-        dto = service.update(id,dto);
+        //dto = service.update(id,update);
 
         return ResponseEntity.noContent().build();
 

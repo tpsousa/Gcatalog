@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Objects;
 
 //camada de acesso a dados
@@ -21,6 +22,16 @@ public class Category implements Serializable {
     @Getter
     private String name;
 
+
+    @Getter
+    @Column
+    private Instant createdAt;
+
+    @Getter
+    @Column
+    private Instant updatedAt;
+
+
     public Category(){
 
     }
@@ -36,6 +47,20 @@ public class Category implements Serializable {
 
     public void setId(long id){
         this.id = id;
+    }
+
+
+    @PrePersist
+    public void prePersist () {
+
+        createdAt = Instant.now();
+
+    }
+
+    @PreUpdate
+    public void preUpdate (){
+
+        updatedAt = Instant.now();
     }
 
     @Override
