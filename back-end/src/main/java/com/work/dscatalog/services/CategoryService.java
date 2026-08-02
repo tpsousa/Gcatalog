@@ -6,6 +6,8 @@ import com.work.dscatalog.repositories.CategoryRepository;
 import com.work.dscatalog.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +24,11 @@ public class  CategoryService {
     private CategoryRepository repository;
 
     @Transactional(readOnly = true)
-    public List<CategoryDTO> findAll(){
+    public Page<CategoryDTO> findAllPaged(PageRequest pageRequest){
 
-        List <Category> list = repository.findAll();
+        Page <Category> list = repository.findAll(pageRequest);
 
-        List <CategoryDTO> listDto  = list.stream().map(x -> new CategoryDTO(x)).collect(Collectors.toList());
+        Page <CategoryDTO> listDto  = list.map(x -> new CategoryDTO(x));
 
         return listDto;
 

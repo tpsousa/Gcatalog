@@ -7,6 +7,10 @@ import com.work.dscatalog.services.exceptions.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.ScrollPosition;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.web.bind.annotation.*;
@@ -26,14 +30,27 @@ public class CategoryResource {
     private CategoryService service;
 
     @GetMapping
-    public ResponseEntity<List <CategoryDTO>> findAll(){
+    public ResponseEntity<Page<CategoryDTO>> findAll(
 
-        List<CategoryDTO> list = service.findAll();
+            //request params sao parametros opcionais com casos default caso n seja informado nada
+            @RequestParam(value = "page" , defaultValue = "0") Integer page,
+            @RequestParam(value = "linesPerPage" , defaultValue = "12") Integer linesPerPage,
+            @RequestParam (value = "direction", defaultValue = "ASC") String direction,
+            @RequestParam(value = "orderBy", defaultValue = "createdAt") String orderBy
+
+
+    ){
+
+
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction) , orderBy);
+
+        Page<CategoryDTO> list = service.findAllPaged(pageRequest);
 
         return ResponseEntity.ok().body(list);
 
     }
     @GetMapping(value = "/{id}")
+    //path variable e quando o parametro e obrigatorio
     public ResponseEntity<CategoryDTO> findById(@PathVariable Long id){
 
         CategoryDTO dto = service.findById(id);
