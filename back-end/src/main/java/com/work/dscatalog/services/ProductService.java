@@ -1,7 +1,10 @@
 package com.work.dscatalog.services;
 
+import com.work.dscatalog.dto.CategoryDTO;
 import com.work.dscatalog.dto.ProductDTO;
+import com.work.dscatalog.entities.Category;
 import com.work.dscatalog.entities.Product;
+import com.work.dscatalog.repositories.CategoryRepository;
 import com.work.dscatalog.repositories.ProductRepository;
 import com.work.dscatalog.services.exceptions.DatabaseException;
 import com.work.dscatalog.services.exceptions.ResourceNotFoundException;
@@ -10,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,12 +24,15 @@ import java.util.Optional;
 public class ProductService {
 
     @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
     private ProductRepository repository;
 
     @Transactional(readOnly = true)
-    public Page<ProductDTO> findAllPaged(PageRequest pageRequest){
+    public Page<ProductDTO> findAllPaged(Pageable pageable){
 
-        Page <Product> list = repository.findAll(pageRequest);
+        Page <Product> list = repository.findAll(pageable);
 
         Page <ProductDTO> listDto  = list.map(x -> new ProductDTO(x));
 
@@ -43,12 +50,26 @@ public class ProductService {
 
     }
 
+    private void copyDtoToEntity(ProductDTO dto, Product entity) {
+        entity.setName(dto.getName());
+        entity.setDescription(dto.getDescription());
+        entity.setPrice(dto.getPrice());
+        entity.setImgUrl(dto.getImgUrl());
+        entity.setDate(dto.getDate());
+
+        entity.getCategories().clear();
+        for (CategoryDTO catDto : dto.getCategories()) {
+            Category category = categoryRepository.getReferenceById(catDto.getId());
+            entity.getCategories().add(category);
+        }
+    }
+
     @Transactional
     public ProductDTO insert(ProductDTO dto) {
 
         Product entity = new Product();
 
-      //  entity.setName(dto.getName());
+        copyDtoToEntity(dto, entity);
 
         entity = repository.save(entity);
 
@@ -56,13 +77,13 @@ public class ProductService {
 
     }
 
-
     @Transactional
     public ProductDTO update(Long id, ProductDTO dto) {
 
         try{
             Product entity = repository.getReferenceById(id);
-          //  entity.setName(dto.getName());
+
+            copyDtoToEntity(dto, entity);
 
             entity = repository.save(entity);
 
@@ -95,4 +116,6 @@ public class ProductService {
             throw new DatabaseException("Integrity failure reference");
         }
     }
+
+
 }
