@@ -1,6 +1,6 @@
 # DSCatalog
 
-Projeto de estudo em **Spring Boot**, desenvolvido com base no curso de Java e Spring do **Nélio Alves (DevSuperior)**, com o objetivo de praticar arquitetura em camadas, persistência de dados, segurança e boas práticas de desenvolvimento back-end.
+Projeto de estudo em **Spring Boot**, com o objetivo de praticar arquitetura em camadas, persistência de dados, segurança e boas práticas de desenvolvimento back-end.
 
 A aplicação simula um catálogo de produtos, permitindo o gerenciamento de **categorias** e **produtos**, com relacionamento entre eles, autenticação, paginação, tratamento de erros e testes automatizados.
 
@@ -161,5 +161,3 @@ Este projeto está em desenvolvimento contínuo como parte dos meus estudos. Pr�
 ## Autor
 
 Desenvolvido por **Thiago**, durante estudos de back-end com Java e Spring Boot.
-
-> Projeto baseado no curso do [Nélio Alves — DevSuperior](https://devsuperior.com.br/), com adaptações e implementações próprias durante o aprendizado.
