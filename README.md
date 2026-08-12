@@ -142,22 +142,3 @@ Product
 ├── date
 └── categories (N:N com Category)
 ```
-
----
-
-## Próximos passos
-
-Este projeto está em desenvolvimento contínuo como parte dos meus estudos. Próximas etapas planejadas:
-
-- [ ] Validações de entrada com Bean Validation
-- [ ] Autenticação via OAuth2 / JWT
-- [ ] Casos de uso mais complexos (cadastro de usuários, perfis de acesso)
-- [ ] Cobertura de testes com JaCoCo
-- [ ] Testes de API com MockMvc e RestAssured
-- [ ] Documentação da API com Swagger/OpenAPI
-
----
-
-## Autor
-
-Desenvolvido por **Thiago**, durante estudos de back-end com Java e Spring Boot.
