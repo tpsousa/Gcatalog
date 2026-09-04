@@ -46,6 +46,7 @@ public class ProductResourceTests {
     private ProductDTO productDTO;
     private Page<ProductDTO> page;
 
+    private ObjectMapper objectMapper;
     @BeforeEach
     void setUp() throws Exception {
         existingId = 1L;
@@ -163,4 +164,5 @@ public class ProductResourceTests {
 
         result.andExpect(status().isNotFound());
     }
+    
 }
