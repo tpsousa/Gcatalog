@@ -46,7 +46,6 @@ public class ProductResourceTests {
     private ProductDTO productDTO;
     private Page<ProductDTO> page;
 
-    private ObjectMapper objectMapper;
     @BeforeEach
     void setUp() throws Exception {
         existingId = 1L;
@@ -164,5 +163,34 @@ public class ProductResourceTests {
 
         result.andExpect(status().isNotFound());
     }
-    
+
+    @Test
+    public void deleteShouldReturnBadRequestWhenDependentId() throws Exception {
+
+        doThrow(DatabaseException.class).when(service).delete(dependentId);
+
+        ResultActions result =
+                mockMvc.perform(delete("/products/{id}", dependentId));
+
+        result.andExpect(status().isBadRequest());
+    }
+
+    /*
+    @Test
+
+    linkpublic void findByIdShouldReturnProductWhenIdExists() throws Exception {
+
+    // 1. ensina o mock
+    when(service.findById(existingId)).thenReturn(productDTO);
+
+    // 2. simula a requisição
+    ResultActions result =
+            mockMvc.perform(get("/products/{id}", existingId)
+                    .accept(MediaType.APPLICATION_JSON));
+
+    // 3. verifica
+    result.andExpect(status().isOk());
+    result.andExpect(jsonPath("$.id").exists());
+}
+    * */
 }
